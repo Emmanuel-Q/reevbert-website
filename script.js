@@ -60,10 +60,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const form = document.querySelector('#contact-form');
   const status = document.querySelector('.form-status');
+  const inquiryRecipient = 'sampsonjubell@gmail.com';
   if (form && status) {
     form.addEventListener('submit', (event) => {
       event.preventDefault();
-      status.textContent = 'Thank you. Your enquiry is ready to be sent.';
+
+      const formData = new FormData(form);
+      const name = (formData.get('name') || '').toString().trim() || 'Customer';
+      const email = (formData.get('email') || '').toString().trim();
+      const interest = (formData.get('interest') || 'General enquiry').toString();
+      const message = (formData.get('message') || '').toString().trim() || 'No message provided.';
+
+      const subject = encodeURIComponent(`Reevbert enquiry from ${name} - ${interest}`);
+      const body = encodeURIComponent(
+        `Name: ${name}\nEmail: ${email}\nInterest: ${interest}\n\nMessage:\n${message}`
+      );
+
+      status.textContent = 'Opening your email app to send the enquiry...';
+      window.location.href = `mailto:${inquiryRecipient}?subject=${subject}&body=${body}`;
       form.reset();
     });
   }
