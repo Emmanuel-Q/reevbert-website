@@ -1,0 +1,115 @@
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.lucide) {
+    lucide.createIcons();
+    document.querySelectorAll('svg').forEach((icon) => {
+      icon.style.color = 'var(--orange)';
+    });
+  }
+
+  const currentPage = document.body.dataset.page;
+  const yearsActive = document.querySelector('[data-start-year]');
+  if (yearsActive) {
+    yearsActive.textContent = String(new Date().getFullYear() - Number(yearsActive.dataset.startYear));
+  }
+
+  const contactDetails = document.querySelector('.contact-details');
+  if (contactDetails) {
+    const contactDetails = document.querySelector('.contact-details');
+    if (contactDetails) {
+      const address = contactDetails.querySelector('address');
+      const contactList = contactDetails.querySelector('.contact-list');
+      if (address) address.innerHTML = 'Head Office, Community Nine (9) Market<br>Office No. TMA/CIX/ST/102 &amp; 103<br>Behind Goil Filling Station<br>Tema, Ghana';
+      if (contactList) contactList.innerHTML = '<a href="tel:+233244981273"><i data-lucide="phone"></i><span>+233 24 498 1273</span></a><a href="tel:+233244862384"><i data-lucide="phone"></i><span>+233 24 486 2384</span></a><a class="whatsapp-link" href="https://wa.me/233244981273" target="_blank" rel="noreferrer"><i data-lucide="message-circle"></i><span>WhatsApp: +233 24 498 1273</span></a><a href="mailto:reevbert.mcaghana@gmail.com"><i data-lucide="mail"></i><span>reevbert.mcaghana@gmail.com</span></a><a href="mailto:ringreeves@gmail.com"><i data-lucide="mail"></i><span>ringreeves@gmail.com</span></a><a href="https://maps.google.com/?q=Behind+Goil+Filling+Station+Community+Nine+Market+Tema+Ghana" target="_blank" rel="noreferrer"><i data-lucide="map-pin"></i><span>Open in Google Maps</span></a>';
+      const poBox = contactDetails.querySelector('.po-box') || document.createElement('p');
+      poBox.className = 'po-box';
+      poBox.textContent = 'P.O. BOX CE 11860, Tema, Ghana';
+      if (!poBox.parentElement) contactDetails.appendChild(poBox);
+    }
+  }
+
+  const footer = document.querySelector('.site-footer');
+  if (footer) {
+    const footerTop = footer.querySelector('.footer-top');
+    const brand = footerTop.querySelector('.brand-footer');
+    const description = footerTop.querySelector('p');
+    const getInTouch = footerTop.querySelector('.footer-contact');
+    footerTop.innerHTML = '';
+    const logoColumn = document.createElement('div');
+    logoColumn.className = 'footer-logo-column';
+    logoColumn.append(brand, description, getInTouch);
+    footerTop.appendChild(logoColumn);
+    footerTop.insertAdjacentHTML('beforeend', '<div class="footer-contact-column"><span class="footer-column-label">Contact</span><a href="tel:+233244981273"><i data-lucide="phone"></i><span>+233 24 498 1273</span></a><a href="tel:+233244862384"><i data-lucide="phone"></i><span>+233 24 486 2384</span></a><a href="https://wa.me/233244981273" target="_blank" rel="noreferrer"><i data-lucide="message-circle"></i><span>WhatsApp</span></a><a href="mailto:reevbert.mcaghana@gmail.com"><i data-lucide="mail"></i><span>reevbert.mcaghana@gmail.com</span></a><a href="mailto:ringreeves@gmail.com"><i data-lucide="mail"></i><span>ringreeves@gmail.com</span></a></div><nav class="footer-nav" aria-label="Footer navigation"><span class="footer-column-label">Explore</span><a href="index.html" data-link="home">Home</a><a href="about.html" data-link="about">About</a><a href="services.html" data-link="services">Services</a><a href="contact.html" data-link="contact">Contact</a></nav>');
+  }
+  if (window.lucide) {
+    lucide.createIcons();
+    document.querySelectorAll('svg').forEach((icon) => { icon.style.color = 'var(--orange)'; });
+  }
+
+  document.querySelectorAll('[data-link]').forEach((link) => {
+    if (link.dataset.link === currentPage) link.classList.add('active');
+  });
+
+  const toggle = document.querySelector('.menu-toggle');
+  const nav = document.querySelector('.site-nav');
+  if (toggle && nav) {
+    toggle.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+  }
+
+  const form = document.querySelector('#contact-form');
+  const status = document.querySelector('.form-status');
+  if (form && status) {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      status.textContent = 'Thank you. Your enquiry is ready to be sent.';
+      form.reset();
+    });
+  }
+
+  const carousel = document.querySelector('.hero-carousel');
+  if (carousel) {
+    const slides = [...carousel.querySelectorAll('.hero-slide')];
+    const dots = [...carousel.querySelectorAll('.carousel-dot')];
+    const pauseButton = carousel.querySelector('[data-carousel="pause"]');
+    let currentSlide = 0;
+    let isPaused = false;
+
+    const showSlide = (index) => {
+      currentSlide = (index + slides.length) % slides.length;
+      slides.forEach((slide, slideIndex) => slide.classList.toggle('active', slideIndex === currentSlide));
+      dots.forEach((dot, dotIndex) => {
+        dot.classList.toggle('active', dotIndex === currentSlide);
+        dot.setAttribute('aria-selected', String(dotIndex === currentSlide));
+      });
+    };
+
+    const rotate = () => {
+      if (!isPaused) showSlide(currentSlide + 1);
+    };
+
+    let rotation = setInterval(rotate, 5500);
+    const restartRotation = () => {
+      clearInterval(rotation);
+      rotation = setInterval(rotate, 5500);
+    };
+
+    carousel.querySelector('[data-carousel="previous"]').addEventListener('click', () => { showSlide(currentSlide - 1); restartRotation(); });
+    carousel.querySelector('[data-carousel="next"]').addEventListener('click', () => { showSlide(currentSlide + 1); restartRotation(); });
+    dots.forEach((dot, index) => dot.addEventListener('click', () => { showSlide(index); restartRotation(); }));
+    pauseButton.addEventListener('click', () => {
+      isPaused = !isPaused;
+      pauseButton.setAttribute('aria-label', isPaused ? 'Resume banner rotation' : 'Pause banner rotation');
+      pauseButton.innerHTML = `<i data-lucide="${isPaused ? 'play' : 'pause'}"></i>`;
+      lucide.createIcons();
+      document.querySelectorAll('.hero-carousel svg').forEach((icon) => { icon.style.color = 'var(--orange)'; });
+    });
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      isPaused = true;
+      pauseButton.hidden = true;
+      clearInterval(rotation);
+    }
+  }
+});
