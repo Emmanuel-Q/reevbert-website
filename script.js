@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+﻿document.addEventListener('DOMContentLoaded', () => {
   if (window.lucide) {
     lucide.createIcons();
     document.querySelectorAll('svg').forEach((icon) => {
@@ -82,6 +82,62 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  const galleryTrigger = document.querySelector('.gallery-trigger');
+  const galleryLightbox = document.querySelector('.gallery-lightbox');
+  const galleryImages = [...document.querySelectorAll('.gallery-item img')];
+  if (galleryLightbox && galleryImages.length) {
+    const lightboxImage = galleryLightbox.querySelector('img');
+    const lightboxCaption = galleryLightbox.querySelector('figcaption');
+    const closeButton = galleryLightbox.querySelector('.gallery-close');
+    const prevButton = galleryLightbox.querySelector('.gallery-prev');
+    const nextButton = galleryLightbox.querySelector('.gallery-next');
+    let currentGalleryIndex = 0;
+
+    const closeGallery = () => {
+      galleryLightbox.classList.remove('open');
+      galleryLightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    };
+
+    const openGallery = (index) => {
+      const safeIndex = (index + galleryImages.length) % galleryImages.length;
+      currentGalleryIndex = safeIndex;
+      const image = galleryImages[currentGalleryIndex];
+      lightboxImage.src = image.src;
+      lightboxImage.alt = image.alt;
+      lightboxCaption.textContent = image.alt;
+      galleryLightbox.classList.add('open');
+      galleryLightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    };
+
+    if (galleryTrigger) {
+      galleryTrigger.addEventListener('click', () => openGallery(0));
+    }
+
+    galleryImages.forEach((image, index) => {
+      const figure = image.closest('.gallery-item');
+      if (figure) {
+        figure.addEventListener('click', () => openGallery(index));
+      }
+    });
+
+    closeButton.addEventListener('click', closeGallery);
+    galleryLightbox.addEventListener('click', (event) => {
+      if (event.target === galleryLightbox) closeGallery();
+    });
+    prevButton.addEventListener('click', () => openGallery(currentGalleryIndex - 1));
+    nextButton.addEventListener('click', () => openGallery(currentGalleryIndex + 1));
+    document.addEventListener('keydown', (event) => {
+      if (!galleryLightbox.classList.contains('open')) return;
+      if (event.key === 'Escape') closeGallery();
+      if (event.key === 'ArrowRight') openGallery(currentGalleryIndex + 1);
+      if (event.key === 'ArrowLeft') openGallery(currentGalleryIndex - 1);
+    });
+
+    if (window.lucide) lucide.createIcons();
+  }
+
   const carousel = document.querySelector('.hero-carousel');
   if (carousel) {
     const slides = [...carousel.querySelectorAll('.hero-slide')];
@@ -127,3 +183,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 });
+
