@@ -1,4 +1,4 @@
-﻿document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
   if (window.lucide) {
     lucide.createIcons();
     document.querySelectorAll('svg').forEach((icon) => {
@@ -145,6 +145,20 @@
     const pauseButton = carousel.querySelector('[data-carousel="pause"]');
     let currentSlide = 0;
     let isPaused = false;
+    let rotation = null;
+
+    const updatePauseButton = () => {
+      pauseButton.setAttribute('aria-label', isPaused ? 'Resume banner rotation' : 'Pause banner rotation');
+      pauseButton.setAttribute('aria-pressed', String(isPaused));
+      pauseButton.innerHTML = `<i data-lucide="${isPaused ? 'play' : 'pause'}"></i>`;
+
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+      document.querySelectorAll('.hero-carousel svg').forEach((icon) => {
+        icon.style.color = 'var(--orange)';
+      });
+    };
 
     const showSlide = (index) => {
       currentSlide = (index + slides.length) % slides.length;
@@ -156,30 +170,58 @@
     };
 
     const rotate = () => {
-      if (!isPaused) showSlide(currentSlide + 1);
+      if (!isPaused) {
+        showSlide(currentSlide + 1);
+      }
     };
 
-    let rotation = setInterval(rotate, 5500);
     const restartRotation = () => {
+      if (isPaused) return;
       clearInterval(rotation);
       rotation = setInterval(rotate, 5500);
     };
 
-    carousel.querySelector('[data-carousel="previous"]').addEventListener('click', () => { showSlide(currentSlide - 1); restartRotation(); });
-    carousel.querySelector('[data-carousel="next"]').addEventListener('click', () => { showSlide(currentSlide + 1); restartRotation(); });
-    dots.forEach((dot, index) => dot.addEventListener('click', () => { showSlide(index); restartRotation(); }));
-    pauseButton.addEventListener('click', () => {
-      isPaused = !isPaused;
-      pauseButton.setAttribute('aria-label', isPaused ? 'Resume banner rotation' : 'Pause banner rotation');
-      pauseButton.innerHTML = `<i data-lucide="${isPaused ? 'play' : 'pause'}"></i>`;
-      lucide.createIcons();
-      document.querySelectorAll('.hero-carousel svg').forEach((icon) => { icon.style.color = 'var(--orange)'; });
+    const startRotation = () => {
+      if (isPaused) return;
+      clearInterval(rotation);
+      rotation = setInterval(rotate, 5500);
+    };
+
+    if (pauseButton) {
+      pauseButton.addEventListener('click', () => {
+        isPaused = !isPaused;
+        updatePauseButton();
+
+        if (isPaused) {
+          clearInterval(rotation);
+          return;
+        }
+
+        startRotation();
+      });
+    }
+
+    carousel.querySelector('[data-carousel="previous"]').addEventListener('click', () => {
+      showSlide(currentSlide - 1);
+      restartRotation();
     });
+    carousel.querySelector('[data-carousel="next"]').addEventListener('click', () => {
+      showSlide(currentSlide + 1);
+      restartRotation();
+    });
+    dots.forEach((dot, index) => dot.addEventListener('click', () => {
+      showSlide(index);
+      restartRotation();
+    }));
+
+    updatePauseButton();
+    startRotation();
 
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       isPaused = true;
       pauseButton.hidden = true;
       clearInterval(rotation);
+      updatePauseButton();
     }
   }
 });
