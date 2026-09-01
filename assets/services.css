@@ -111,6 +111,9 @@
 .home-service.home-logistics{background:linear-gradient(180deg,#ffffff,var(--paper))}
 .home-service.home-logistics .service-hero-title{color:var(--ink)}
 
+/* Reduce homepage service title size by ~20% for better balance */
+.home-service .service-hero-title{font-size:clamp(2.24rem,6.4vw,4.16rem)}
+
 /* animation: fade-up + slide for homepage service content */
 .home-text, .home-visual img{opacity:0;transform:translateY(18px)}
 .home-text.in-view, .home-visual.in-view img{animation:fadeUp .6s ease forwards}
