@@ -10,7 +10,10 @@
 
 /* --- Decorative no-image hero for main services --- */
 .service-media.no-media{background:linear-gradient(135deg,var(--green),#2aa26b);border-radius:12px;color:var(--white);display:flex;align-items:center;justify-content:center;height:360px}
-.service-media.no-media .service-hero-text{font-family:var(--sans);font-weight:800;font-size:36px;letter-spacing:.02em;text-transform:none}
+.service-media.no-media .service-hero-text{font-family:var(--sans);font-weight:900;font-size:48px;letter-spacing:.02em;text-transform:none}
+
+/* make main service headings highest visual hierarchy */
+.service-content h2{font-size:36px;line-height:1.03;margin:0 0 14px;font-weight:900}
 @media(max-width:1000px){.service-media.no-media{height:260px}.service-media.no-media .service-hero-text{font-size:28px}}
 @media(max-width:560px){.service-media.no-media{height:200px}.service-media.no-media .service-hero-text{font-size:22px}}
 .service-content{padding:6px 0}
@@ -29,20 +32,20 @@
 
 /* --- Reuse and tune micro-grid and mini-grid --- */
 .micro-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:18px}
-.micro-card{background:var(--white);border-radius:12px;overflow:hidden;box-shadow:0 10px 24px rgba(21,58,43,.08);text-align:left}
-.micro-card img{width:100%;height:140px;object-fit:cover;display:block}
-.micro-card h4{margin:12px 14px 6px;font-size:16px}
-.micro-card p{margin:0 14px 16px;color:var(--muted);font-size:13px}
+.micro-card{background:transparent;border-radius:0;overflow:visible;box-shadow:none;padding:0;display:flex;gap:12px;align-items:flex-start}
+.micro-card img{width:120px;height:80px;object-fit:cover;border-radius:8px;flex:0 0 120px}
+.micro-card h4{margin:0;font-size:16px}
+.micro-card p{margin:4px 0 0;color:var(--muted);font-size:13px}
 
 .mini-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
-.mini-card{display:flex;gap:12px;align-items:center;background:var(--white);border-radius:10px;padding:8px;border:1px solid rgba(21,58,43,.04);box-shadow:0 8px 22px rgba(21,58,43,.05)}
-.mini-card img{width:64px;height:64px;border-radius:8px;object-fit:cover}
+.mini-card{display:flex;gap:12px;align-items:center;background:transparent;border-radius:0;padding:0;border:0;box-shadow:none}
+.mini-card img{width:56px;height:56px;border-radius:8px;object-fit:cover}
 .mini-card h5{margin:0;font-size:13px}
 .mini-card .muted{margin:4px 0 0;color:var(--muted);font-size:12px}
 
 /* --- Utilities for logistics blocks inside sections --- */
 .logistics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:14px}
-.logistics-block{background:var(--white);padding:14px;border-radius:10px;border:1px solid rgba(21,58,43,.04);box-shadow:0 8px 20px rgba(21,58,43,.04)}
+.logistics-block{background:transparent;padding:0;border-radius:0;border:0;box-shadow:none}
 .logistics-block h4{margin:0 0 8px}
 .logistics-block ul{margin:0;padding-left:18px;color:var(--muted)}
 
