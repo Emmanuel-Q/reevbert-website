@@ -36,9 +36,14 @@
 
 /* --- Reuse and tune micro-grid and mini-grid --- */
 .micro-split{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;margin-top:18px}
+.micro-visual img{width:100%;height:360px;object-fit:cover;border-radius:12px;display:block;opacity:0;transform:translateY(18px)}
+.micro-visual.in-view img{animation:fadeUp .6s ease forwards}
+.micro-details{opacity:0;transform:translateY(12px)}
+.micro-details.in-view{animation:fadeUp .6s ease forwards}
 .micro-visual{padding-right:8px}
 .micro-grid-vertical{display:grid;gap:18px}
-.micro-tile{background:var(--white);border-radius:12px;overflow:hidden;border:1px solid rgba(21,58,43,.06);box-shadow:0 14px 30px rgba(21,58,43,.06);transition:transform .28s ease,box-shadow .28s ease;opacity:0;transform:translateY(12px);animation:fadeUp .56s ease forwards;animation-delay:calc(var(--i) * 120ms)}
+.micro-tile{background:var(--white);border-radius:12px;overflow:hidden;border:1px solid rgba(21,58,43,.06);box-shadow:0 14px 30px rgba(21,58,43,.06);transition:transform .28s ease,box-shadow .28s ease;opacity:0;transform:translateY(12px)}
+.micro-tile.in-view{animation:fadeUp .56s ease forwards;animation-delay:calc(var(--i) * 120ms)}
 .micro-tile img{width:100%;height:220px;object-fit:cover;display:block}
 .tile-body{padding:16px}
 .tile-body h4{margin:0 0 8px;font-size:18px}
@@ -51,7 +56,7 @@
 .micro-detail p{margin:0 0 8px;color:var(--muted)}
 .micro-detail ul{margin:0 0 8px 18px;color:var(--muted)}
 
-@media(max-width:1000px){.micro-split{grid-template-columns:1fr;gap:20px}.micro-visual{padding-right:0}.micro-details{padding-left:0}.micro-tile img{height:180px}}
+@media(max-width:1000px){.micro-split{grid-template-columns:1fr;gap:20px}.micro-visual{padding-right:0}.micro-details{padding-left:0}.micro-tile img{height:180px}.micro-visual img{height:260px}}@media(max-width:640px){.micro-visual img{height:200px}}
 
 @keyframes fadeUp{to{opacity:1;transform:none}}
 
@@ -101,7 +106,8 @@
 .home-service.home-logistics .service-hero-title{color:var(--ink)}
 
 /* animation: fade-up + slide for homepage service content */
-.home-text, .home-visual img{opacity:0;transform:translateY(18px);animation:fadeUp .6s ease forwards}
+.home-text, .home-visual img{opacity:0;transform:translateY(18px)}
+.home-text.in-view, .home-visual.in-view img{animation:fadeUp .6s ease forwards}
 .home-text{transform:translateX(-10px)}
 .home-visual img{transform:translateX(10px)}
 .home-service:nth-of-type(1) .home-text{animation-delay:120ms}.home-service:nth-of-type(1) .home-visual img{animation-delay:220ms}
