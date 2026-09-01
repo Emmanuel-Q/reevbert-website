@@ -73,3 +73,32 @@
 
 /* Small tweaks for spacing */
 .service-section + .service-section{margin-top:18px}
+
+/* --- Homepage service section backgrounds and animation --- */
+.home-service{padding:36px 6vw;border-radius:8px;margin:28px 0;overflow:hidden}
+.home-service .service-title{margin-bottom:12px}
+
+/* Trading: light green tint */
+.home-service.home-trading{background:linear-gradient(180deg,var(--soft),#ffffff)}
+.home-service.home-trading .service-hero-title{color:var(--ink)}
+.home-service.home-trading .service-content{color:var(--ink)}
+
+/* Micro-credit: stronger green band with white text */
+.home-service.home-micro{background:linear-gradient(180deg,#0f5e37,var(--green));color:#fff}
+.home-service.home-micro .service-hero-title{color:#fff}
+.home-service.home-micro .service-subtitle,.home-service.home-micro .service-content p,.home-service.home-micro .service-content .muted{color:rgba(255,255,255,0.92)}
+.home-service.home-micro .text-link{color:rgba(255,255,255,0.95)}
+.home-service.home-micro .button{background:#fff;color:var(--green)}
+
+/* Logistics: pale neutral band */
+.home-service.home-logistics{background:linear-gradient(180deg,#ffffff,var(--paper))}
+.home-service.home-logistics .service-hero-title{color:var(--ink)}
+
+/* animation: fade-up for homepage service content */
+.home-service .service-hero-title,.home-service .service-content{opacity:0;transform:translateY(12px);animation:fadeUp .6s ease forwards}
+.home-service:nth-of-type(1) .service-hero-title{animation-delay:120ms}.home-service:nth-of-type(1) .service-content{animation-delay:220ms}
+.home-service:nth-of-type(2) .service-hero-title{animation-delay:320ms}.home-service:nth-of-type(2) .service-content{animation-delay:420ms}
+.home-service:nth-of-type(3) .service-hero-title{animation-delay:520ms}.home-service:nth-of-type(3) .service-content{animation-delay:620ms}
+
+@media(max-width:900px){.home-service{padding:28px 6vw}.home-service .service-hero-title{font-size:clamp(1.8rem,7vw,2.8rem)}}
+
