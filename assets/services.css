@@ -1,11 +1,60 @@
 /* Styles for micro-credit and service cards (services and homepage) */
 
 /* --- Split service sections (full width, alternating) --- */
-.service-section{padding:48px 6vw;background:transparent}
+.service-section{padding:30px clamp(20px,3vw,36px);background:linear-gradient(180deg,#ffffff,#f8faf7);border:1px solid rgba(21,58,43,.08);border-radius:22px;box-shadow:0 16px 30px rgba(21,58,43,.04)}
+#trading.service-section{background:linear-gradient(180deg,#ffffff,#f4fbf5)}
+#micro-credit.service-section{background:linear-gradient(180deg,#f8fbf6,#eef7f0)}
+#logistics.service-section{background:linear-gradient(180deg,#ffffff,#f6f7f2)}
 .service-split{display:grid;grid-template-columns:40% 60%;gap:36px;align-items:center}
+.service-section .service-split{grid-template-columns:1.1fr 0.9fr}
 .service-section.reverse .service-split{direction:ltr}
 .service-section.reverse .service-media{order:2}
 .service-section.reverse .service-content{order:1}
+.service-media img{display:block;width:100%;height:350px;object-fit:cover;border-radius:18px;box-shadow:0 18px 30px rgba(21,58,43,.10)}
+.service-media{width:100%}
+
+.logistics-split{align-items:stretch}
+.logistics-split .service-content{display:flex;flex-direction:column;justify-content:center}
+.commodity-gallery-panel{display:flex;align-items:stretch;min-height:100%}
+.commodity-collage{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;width:100%;height:100%}
+.commodity-thumb{padding:0;border:0;background:transparent;cursor:pointer;overflow:hidden;border-radius:16px;position:relative;box-shadow:0 10px 18px rgba(21,58,43,.08);transition:transform .25s ease, box-shadow .25s ease;outline:none}
+.commodity-thumb img{display:block;width:100%;height:100%;min-height:130px;object-fit:cover;transition:transform .28s ease}
+.commodity-thumb:hover{transform:translateY(-3px);box-shadow:0 18px 28px rgba(21,58,43,.12)}
+.commodity-thumb:hover img{transform:scale(1.04)}
+.commodity-thumb:nth-child(1), .commodity-thumb:nth-child(2), .commodity-thumb:nth-child(3){grid-row:span 1}
+.commodity-thumb:nth-child(4), .commodity-thumb:nth-child(5), .commodity-thumb:nth-child(6){grid-row:span 1}
+.commodity-thumb:nth-child(7), .commodity-thumb:nth-child(8), .commodity-thumb:nth-child(9){grid-row:span 1}
+
+.commodity-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:2200}
+.commodity-modal.is-open{display:flex}
+.commodity-modal-backdrop{position:absolute;inset:0;background:rgba(10,18,15,.72);backdrop-filter:blur(8px)}
+.commodity-modal-dialog{position:relative;z-index:1;width:min(88vw,1000px);max-height:88vh;display:flex;align-items:center;justify-content:center;gap:18px;padding:28px 24px}
+.commodity-modal-stage{flex:1;display:flex;align-items:center;justify-content:center;min-height:420px;max-height:72vh;background:rgba(255,255,255,.06);border-radius:18px;overflow:hidden}
+.commodity-modal-stage img{display:block;max-width:100%;max-height:72vh;width:auto;height:auto;object-fit:contain;border-radius:14px;box-shadow:0 24px 46px rgba(0,0,0,.25)}
+.commodity-modal-nav,.commodity-modal-close{position:absolute;border:none;background:rgba(255,255,255,.18);color:#fff;border-radius:50%;width:44px;height:44px;display:grid;place-items:center;font-size:26px;cursor:pointer;transition:background .2s ease, transform .2s ease}
+.commodity-modal-nav:hover,.commodity-modal-close:hover{background:rgba(255,255,255,.28);transform:translateY(-1px)}
+.commodity-modal-nav.prev{left:12px;top:50%;transform:translateY(-50%)}
+.commodity-modal-nav.next{right:12px;top:50%;transform:translateY(-50%)}
+.commodity-modal-close{top:12px;right:12px}
+
+@media(max-width:980px){.logistics-split{grid-template-columns:1fr}.commodity-gallery-panel{min-height:320px}.commodity-collage{grid-template-columns:repeat(3,minmax(120px,1fr))}}
+@media(max-width:560px){.commodity-collage{grid-template-columns:repeat(2,minmax(0,1fr))}.commodity-modal-dialog{padding:26px 18px}.commodity-modal-stage{min-height:280px}}
+
+.loan-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin:20px auto 26px;max-width:980px}
+.loan-card{position:relative;overflow:hidden;border-radius:18px;border:1px solid rgba(21,58,43,.08);background:#fff;box-shadow:0 14px 26px rgba(21,58,43,.06);transition:transform .28s ease, box-shadow .28s ease;animation:loanFadeUp .7s ease both;max-width:440px;width:100%;justify-self:center;display:flex;flex-direction:column}
+.loan-card:nth-child(2){animation-delay:.08s}
+.loan-card:nth-child(3){animation-delay:.16s}
+.loan-card:nth-child(4){animation-delay:.24s}
+.loan-card:hover{transform:translateY(-6px);box-shadow:0 20px 30px rgba(21,58,43,.09)}
+.loan-card img{display:block;width:100%;height:200px;object-fit:cover}
+.loan-card-body{padding:14px 16px 16px;display:flex;flex-direction:column;flex:1}
+.loan-pill{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:rgba(15,94,55,.08);color:var(--green);font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.loan-card h4{margin:10px 0 0;font-size:1.08rem;line-height:1.25;color:var(--ink)}
+.loan-card p{margin:10px 0 0;font-size:14px;line-height:1.6;color:var(--muted)}
+.loan-card ul{margin:12px 0 0;padding-left:18px;color:var(--muted);font-size:13px;line-height:1.6}
+.loan-card li + li{margin-top:4px}
+
+@keyframes loanFadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .service-media img{width:100%;height:360px;object-fit:cover;border-radius:12px;display:block}
 
 /* hide previous no-media blocks if present */
@@ -16,14 +65,14 @@
 .service-media.no-media .service-hero-text{font-family:var(--sans);font-weight:900;font-size:48px;letter-spacing:.02em;text-transform:none}
 
 /* make main service headings highest visual hierarchy */
-.service-content h2{font-size:36px;line-height:1.03;margin:0 0 14px;font-weight:900}
+.service-content h2{font-size:28.8px;line-height:1.03;margin:0 0 10px;font-weight:900}
 @media(max-width:1000px){.service-media.no-media{height:260px}.service-media.no-media .service-hero-text{font-size:28px}}
 @media(max-width:560px){.service-media.no-media{height:200px}.service-media.no-media .service-hero-text{font-size:22px}}
 .service-content{padding:6px 0}
 .service-content .section-kicker{color:var(--orange);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px}
-.service-hero-title{font-size:clamp(2.8rem,8vw,5.2rem);line-height:0.95;margin:0;color:var(--ink);font-weight:900}
-.service-subtitle{font-size:18px;margin:12px 0;color:var(--muted);font-weight:600}
-.service-content p{color:var(--muted);margin-bottom:18px}
+.service-hero-title{font-size:clamp(2.8rem,8vw,5.2rem);line-height:0.95;margin:0 0 8px;color:var(--ink);font-weight:900}
+.service-subtitle{font-size:18px;margin:0 0 10px;color:var(--muted);font-weight:600}
+.service-content p{color:var(--muted);margin:0 0 16px}
 .service-content .button{margin-top:6px}
 
 @media(max-width:1000px){
@@ -77,20 +126,53 @@
 @media(max-width:640px){.logistics-grid{grid-template-columns:1fr}}
 
 /* Small tweaks for spacing */
-.service-section + .service-section{margin-top:18px}
+.service-section + .service-section{margin-top:10px}
+
+/* --- Homepage service feature cards --- */
+.service-tag-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:24px 0 16px}
+.service-tag-card{background:linear-gradient(180deg,#ffffff,#f5faf6);border:1px solid rgba(21,58,43,.08);border-radius:18px;padding:16px 18px;box-shadow:0 14px 26px rgba(21,58,43,.05);transition:transform .25s ease,box-shadow .25s ease}
+.service-tag-card:hover{transform:translateY(-4px);box-shadow:0 18px 32px rgba(21,58,43,.09)}
+.service-tag-label{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:rgba(15,94,55,.08);color:var(--green);font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.service-tag-card h4{margin:12px 0 10px;font-size:1.06rem;line-height:1.2}
+.service-tag-card ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.service-tag-card li{display:inline-flex;align-items:center;padding:7px 10px;border-radius:999px;background:rgba(15,94,55,.06);color:var(--ink);font-size:12px;font-weight:700;line-height:1.2}
+
+.home-service.home-trading .service-tag-card{background:linear-gradient(180deg,#ffffff,#f0f8f2)}
+.home-service.home-micro .service-tag-card{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18);box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+.home-service.home-micro .service-tag-label{background:rgba(255,255,255,.12);color:#fff}
+.home-service.home-micro .service-tag-card h4,.home-service.home-micro .service-tag-card li{color:#fff}
+.home-service.home-micro .service-tag-card li{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.08)}
+.home-service.home-logistics .service-tag-card{background:linear-gradient(180deg,#ffffff,#f6f7f2)}
+
+@media(max-width:700px){.service-tag-grid{grid-template-columns:1fr}}
 
 /* --- Homepage service section backgrounds and animation --- */
 .home-service{padding:36px 6vw;border-radius:8px;margin:28px 0;overflow:hidden}
 .home-service .service-title{margin-bottom:12px}
 
-/* Split layout for homepage: text left, image right */
-.home-split{display:grid;grid-template-columns:55% 45%;gap:28px;align-items:center}
-.home-text{padding-right:12px}
-.home-visual img{width:100%;height:320px;object-fit:cover;border-radius:10px;display:block}
+/* Editorial magazine layout: image sits on one side, text wraps beside it */
+.home-split{display:block;clear:both}
+.home-text{padding-right:0;overflow:hidden}
+.home-visual{float:left;width:min(34%,320px);margin:0 26px 18px 0}
+.home-visual img{width:100%;height:300px;object-fit:cover;border-radius:14px;display:block;box-shadow:0 18px 26px rgba(21,58,43,.08)}
+.home-service.home-trading .home-visual{float:left;width:min(34%,320px);margin:0 30px 18px 0}
+.home-service.home-trading .home-visual img{height:290px}
+.home-service.home-trading .home-text{overflow:hidden;max-width:calc(100% - 350px)}
+.home-service.home-micro .home-visual{float:right;width:min(30%,280px);margin:0 0 18px 30px}
+.home-service.home-micro .home-visual img{height:270px}
+.home-service.home-micro .home-text{overflow:hidden;max-width:calc(100% - 310px)}
+.home-service.home-logistics .home-visual{float:left;width:min(36%,340px);margin:0 30px 18px 0}
+.home-service.home-logistics .home-visual img{height:310px}
+.home-service.home-logistics .home-text{overflow:hidden;max-width:calc(100% - 370px)}
+.home-service .home-visual{display:block;clear:none}
+.home-service .home-text{position:relative;overflow:hidden}
+.home-service .home-text > *:first-child{margin-top:0}
+.home-service .home-text > *:last-child{margin-bottom:0}
+
 @media(max-width:900px){
-  .home-split{grid-template-columns:1fr}
+  .home-split{display:grid;grid-template-columns:1fr}
+  .home-visual,.home-service.home-micro .home-visual,.home-service.home-logistics .home-visual{float:none;width:100%;margin:0 0 18px}
   .home-visual img{height:220px}
-  /* On small screens show the image above the text */
   .home-visual{order:-1}
   .home-text{order:0}
 }
