@@ -209,3 +209,7 @@
 
 @media(max-width:900px){.home-service{padding:28px 6vw}.home-service .service-hero-title{font-size:clamp(1.8rem,7vw,2.8rem)}}
 
+.service-note{background:var(--green)}
+.service-note h2,.service-note h2 i,.service-note h2 em,.service-note p{color:var(--white)}
+.service-note p{opacity:.9}
+
