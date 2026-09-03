@@ -37,8 +37,25 @@
 .commodity-modal-nav.next{right:12px;top:50%;transform:translateY(-50%)}
 .commodity-modal-close{top:12px;right:12px}
 
-@media(max-width:980px){.logistics-split{grid-template-columns:1fr}.commodity-gallery-panel{min-height:320px}.commodity-collage{grid-template-columns:repeat(3,minmax(120px,1fr))}}
-@media(max-width:560px){.commodity-collage{grid-template-columns:repeat(2,minmax(0,1fr))}.commodity-modal-dialog{padding:26px 18px}.commodity-modal-stage{min-height:280px}}
+@media(max-width:980px){
+  .service-section .service-split,
+  .service-section .logistics-split{grid-template-columns:1fr}
+  .service-section .service-media,
+  .service-section .commodity-gallery-panel{order:-1}
+  .service-section .service-media{margin-bottom:24px}
+  .commodity-gallery-panel{min-height:320px}
+  .commodity-collage{grid-template-columns:repeat(3,minmax(0,1fr));min-height:320px}
+}
+@media(max-width:560px){
+  .service-section{padding:24px 20px;border-radius:16px}
+  .service-section .service-split{gap:0}
+  .service-section .service-media{margin-bottom:18px}
+  .service-media img{height:220px}
+  .commodity-collage{grid-template-columns:repeat(2,minmax(0,1fr));min-height:280px}
+  .commodity-thumb img{min-height:120px}
+  .commodity-modal-dialog{padding:26px 18px}
+  .commodity-modal-stage{min-height:280px}
+}
 
 .loan-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin:20px auto 26px;max-width:980px}
 .loan-card{position:relative;overflow:hidden;border-radius:18px;border:1px solid rgba(21,58,43,.08);background:#fff;box-shadow:0 14px 26px rgba(21,58,43,.06);transition:transform .28s ease, box-shadow .28s ease;animation:loanFadeUp .7s ease both;max-width:440px;width:100%;justify-self:center;display:flex;flex-direction:column}
@@ -53,6 +70,12 @@
 .loan-card p{margin:10px 0 0;font-size:14px;line-height:1.6;color:var(--muted)}
 .loan-card ul{margin:12px 0 0;padding-left:18px;color:var(--muted);font-size:13px;line-height:1.6}
 .loan-card li + li{margin-top:4px}
+
+@media(max-width:700px){
+  .loan-grid{grid-template-columns:1fr;gap:16px}
+  .loan-card{max-width:none}
+  .loan-card img{height:180px}
+}
 
 @keyframes loanFadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .service-media img{width:100%;height:360px;object-fit:cover;border-radius:12px;display:block}
