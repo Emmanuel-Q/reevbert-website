@@ -170,9 +170,19 @@
 .home-service .home-text > *:last-child{margin-bottom:0}
 
 @media(max-width:900px){
-  .home-split{display:grid;grid-template-columns:1fr}
-  .home-visual,.home-service.home-micro .home-visual,.home-service.home-logistics .home-visual{float:none;width:100%;margin:0 0 18px}
-  .home-visual img{height:220px}
+  .home-split{display:grid;grid-template-columns:1fr;gap:0}
+  .home-service.home-trading .home-visual,
+  .home-service.home-micro .home-visual,
+  .home-service.home-logistics .home-visual,
+  .home-service .home-visual{float:none;width:100%;margin:0 0 22px}
+  .home-service.home-trading .home-text,
+  .home-service.home-micro .home-text,
+  .home-service.home-logistics .home-text,
+  .home-service .home-text{max-width:none;width:100%}
+  .home-visual img,
+  .home-service.home-trading .home-visual img,
+  .home-service.home-micro .home-visual img,
+  .home-service.home-logistics .home-visual img{height:clamp(220px,38vw,300px)}
   .home-visual{order:-1}
   .home-text{order:0}
 }
@@ -207,9 +217,22 @@
 
 @keyframes fadeUp{to{opacity:1;transform:none}}
 
-@media(max-width:900px){.home-service{padding:28px 6vw}.home-service .service-hero-title{font-size:clamp(1.8rem,7vw,2.8rem)}}
+@media(max-width:900px){
+  .home-service{padding:28px clamp(20px,6vw,48px);margin:22px 0}
+  .home-service .service-hero-title{font-size:clamp(1.8rem,7vw,2.8rem)}
+  .home-service .service-tag-grid{gap:12px}
+}
+
+@media(max-width:560px){
+  .home-service{padding:24px 20px;margin:18px 0;border-radius:14px}
+  .home-service .home-visual{margin-bottom:18px}
+  .home-service .home-visual img{height:clamp(180px,55vw,240px)}
+  .home-service .service-hero-title{font-size:clamp(2rem,10vw,2.6rem)}
+  .home-service .service-subtitle{font-size:16px;line-height:1.3}
+  .home-service .service-tag-grid{grid-template-columns:1fr;margin:20px 0 14px}
+  .home-service .service-tag-card{padding:14px 15px}
+}
 
 .service-note{background:var(--green)}
 .service-note h2,.service-note h2 i,.service-note h2 em,.service-note p{color:var(--white)}
 .service-note p{opacity:.9}
-
